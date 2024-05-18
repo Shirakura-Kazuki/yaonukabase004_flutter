@@ -154,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child:SizedBox(
                       width: _deviceWidth!*0.25,
                         child: ElevatedButton(
-                          child: const Text('ログイン'),
+                          child: const Text('ログインをします'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepOrange.shade900,
                             foregroundColor: Colors.white,
