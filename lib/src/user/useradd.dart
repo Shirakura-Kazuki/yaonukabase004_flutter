@@ -172,7 +172,7 @@ class _UserAddPageState extends State<UserAddPage> {
                                 print('ユーザー登録をするUIDは:$_uid_num');
 
                                 // 確認ページへ遷移
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => AddConPage()));
+                                // Navigator.push(context, MaterialPageRoute(builder: (context) => AddConPage()));
                               } else {
                                 print("ユーザー登録に失敗しました。");
                               }
