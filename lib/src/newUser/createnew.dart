@@ -69,7 +69,7 @@ class _CreateNewState extends State<CreateNew> {
                         backgroundColor: Colors.red, // ボタンの背景色を赤に設定
                       ),
                       child: const Text(
-                        '新規作成',
+                        'New新規作成',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
