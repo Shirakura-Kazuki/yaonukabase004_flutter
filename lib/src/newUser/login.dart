@@ -3,7 +3,8 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yaonukabase004/src/Navibar_src/PageNavi.dart';
-import 'package:yaonukabase004/src/user/useradd.dart';
+import 'package:yaonukabase004/src/newUser/createnew.dart';
+import 'package:yaonukabase004/src/user/useradddemo.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -39,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Container(
               padding: const EdgeInsets.all(24),
               width: max(_deviceWidth! * 0.4, 330), //containerの幅が画面幅の80％か430ピクセルの内大きい方が採用される
-              height: _deviceHeight! * 0.8,
+              height: _deviceHeight! * 0.9,
               color: Colors.white,
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
@@ -108,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: SizedBox(
                       width: _deviceWidth! * 0.25,
                       child: ElevatedButton(
-                        child: const Text('ログインをします'),
+                        child: const Text('ログイン'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.deepOrange.shade900,
                           foregroundColor: Colors.white,
@@ -153,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => UserAddPage()),
+                            MaterialPageRoute(builder: (context) => CreateNew()),
                           );
                         },
                       ),
@@ -203,6 +204,13 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     ),
+                  ),
+                  SizedBox(height: 20), // スペースを追加
+                  Image.asset(
+                    'assets/images/bottomimage.png',
+                    width: 150, // 適切な幅を設定
+                    height: 150, // 適切な高さを設定
+                    fit: BoxFit.contain,
                   ),
                 ],
               ),

@@ -74,7 +74,7 @@ class _User_InfoState extends State<User_Info> {
                 Container(
                   width: _deviceWidth,
                   height: _deviceHeight! * 0.2,
-                  color: Colors.lightBlue.shade900,
+                  color: Colors.red.shade900,
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

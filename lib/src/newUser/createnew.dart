@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:yaonukabase004/src/newUser/login.dart';
+import 'package:yaonukabase004/src/newUser/selectnew.dart';
 
 class CreateNew extends StatefulWidget {
   const CreateNew({super.key});
@@ -40,13 +42,26 @@ class _CreateNewState extends State<CreateNew> {
                   height: customHeight,
                   fit: BoxFit.contain,
                 ),
+                SizedBox(height: 38,),
+                Text('アカウントの作成はこちら▼',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    color: Colors.lightBlue.shade400,  
+                  ),
+                ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 25.0),
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 25),
                   child: SizedBox(
                     width: 370,
                     height: 70,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => selectnew()),
+                          );
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -65,7 +80,9 @@ class _CreateNewState extends State<CreateNew> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                   child: const Text(
                     'アカウントをお持ちの方はこちら',
                     style: TextStyle(
@@ -74,7 +91,7 @@ class _CreateNewState extends State<CreateNew> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20), // スペースを追加
+                SizedBox(height: 30), // スペースを追加
                 Image.asset(
                   'assets/images/bottomimage.png',
                   width: 150, // 適切な幅を設定

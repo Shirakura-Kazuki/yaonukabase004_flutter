@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:convert';  //JSONのエンコード/デコードを行うためのライブラリ
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -12,6 +12,7 @@ class form_page extends StatefulWidget {
 }
 
 class _form_pageState extends State<form_page> {
+
   final TextEditingController _nameController = TextEditingController(); 
   final TextEditingController _conceptController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -22,7 +23,7 @@ class _form_pageState extends State<form_page> {
   String _tech3 = '未選択';
   String _userId = 'guest';
   late String _formattedDate;
-
+  
   @override
   void initState() {
     super.initState();
@@ -293,7 +294,6 @@ class _form_pageState extends State<form_page> {
                       ),
                     ), 
                   ),
-                  
                 ],
               ) ,
             ),
@@ -344,188 +344,3 @@ class _form_pageState extends State<form_page> {
 }
 
 
-
-
-// import 'dart:convert';
-// import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
-// import 'package:intl/intl.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-
-// class form_page extends StatefulWidget {
-//   const form_page({super.key});
-
-//   @override
-//   State<form_page> createState() => _form_pageState();
-// }
-
-
-// class _form_pageState extends State<form_page> {
-//   final TextEditingController _nameController = TextEditingController();  //アイデアネーム入力テキスト
-//   final TextEditingController _conceptController = TextEditingController(); //アイデアコンセプト入力テキスト
-//   final FirebaseAuth _auth = FirebaseAuth.instance; //firebaseauthのユーザー情報取得
-
-//    // 画面の大きさを格納する変数
-//   double? _deviceWidth , _deviceHeight;
-
-//   String _tech1 = 'Tech1';
-//   String _tech2 = 'Tech1';
-//   String _tech3 = 'Tech1';
-//   String _userId = 'guest';
-//   late String _formattedDate;
-
-//   @override
-//   //  initState()：一度だけ実行するメソッド
-//   void initState() {
-//     super.initState();
-//     _formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
-//     _initializeUser();
-//   }
-
-//   void _initializeUser() {
-//     final User? user = _auth.currentUser;
-//     setState(() {
-//       _userId = user?.uid ?? 'guest';
-//       _userId = _userId.toString();
-//     });
-//   }
-
-//  Future<void> _saveToDatabase() async {
-//   var body = json.encode({
-//     'ideaname': _nameController.text,
-//     'ideaconcept': _conceptController.text,
-//     'ideadate': _formattedDate,
-//     'ideaimage': '0xFFD8FFE000104A46494600010100000100010000FFE201D84943435F50524F46494C45000101000001C80000000004300000',
-//     'ideatechnology1': _tech1,
-//     'ideatechnology2': _tech2,
-//     'ideatechnology3': _tech3,
-//     'userid': _userId
-//   });
-
-
-//   // 送信データをコンソールに出力
-//   print("Sending Data: $body");
-
-//   try {
-//     final response = await http.post(
-//       Uri.parse('https://craftsconnect.azurewebsites.net/api/create_idea_record'),
-//       headers: {'Content-Type': 'application/json'},
-//       body: body,
-//     );
-
-//     if (response.statusCode == 201) {
-//       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Idea added successfully')));
-//     } else {
-//       print("Error from the server: ${response.body}");
-//       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: ${response.body}')));
-//     }
-//   } catch (e) {
-//     print("Exception caught: $e");
-//     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Exception: $e')));
-//   }
-// }
-
-
-//   @override
-//   Widget build(BuildContext context) {
-
-//     // 画面の大きさを取得する
-//     _deviceWidth = MediaQuery.of(context).size.width;
-//     _deviceHeight = MediaQuery.of(context).size.height;
-
-//   return Scaffold(
-//       appBar: AppBar(title: Text('アイデア投稿フォーム')),
-//       body: SingleChildScrollView(
-//         child: Center(  // Center widget added here
-//           child: Padding(
-//             padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-//             child: Container(
-//               alignment: Alignment.center,
-//               width: MediaQuery.of(context).size.width * 0.65,  // デバイス幅の65%を使用
-//               constraints: BoxConstraints(
-//                 minWidth: 400,
-//                 maxWidth: 700,
-//               ),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.center,
-//                 children: <Widget>[
-//                   TextField(
-//                     controller: _nameController,
-//                     decoration: InputDecoration(
-//                       labelText: 'アイデアネーム',
-//                       border: OutlineInputBorder(),  
-//                     ),
-//                   ),
-//                   TextField(
-//                     controller: _conceptController,
-//                     decoration: InputDecoration(labelText: 'アイデアコンセプト'),
-//                   ),
-//                   Text('投稿時間: $_formattedDate'),
-//                   DropdownButtonFormField(
-//                     value: _tech1,
-//                     onChanged: (String? newValue) {
-//                       if (newValue != null) {
-//                         setState(() {
-//                           _tech1 = newValue;
-//                         });
-//                       }
-//                     },
-//                     items: <String>['Tech1', 'Tech2', 'Tech3', 'Tech4', 'Tech5']
-//                         .map<DropdownMenuItem<String>>((String value) {
-//                       return DropdownMenuItem<String>(
-//                         value: value,
-//                         child: Text(value),
-//                       );
-//                     }).toList(),
-//                     decoration: InputDecoration(labelText: 'アイデアテクノロジー１'),
-//                   ),
-//                   DropdownButtonFormField(
-//                     value: _tech2,
-//                     onChanged: (String? newValue) {
-//                       if (newValue != null) {
-//                         setState(() {
-//                           _tech2 = newValue;
-//                         });
-//                       }
-//                     },
-//                     items: <String>['Tech1', 'Tech2', 'Tech3', 'Tech4', 'Tech5']
-//                         .map<DropdownMenuItem<String>>((String value) {
-//                       return DropdownMenuItem<String>(
-//                         value: value,
-//                         child: Text(value),
-//                       );
-//                     }).toList(),
-//                     decoration: InputDecoration(labelText: 'アイデアテクノロジー２（任意）'),
-//                   ),
-//                   DropdownButtonFormField(
-//                     value: _tech3,
-//                     onChanged: (String? newValue) {
-//                       if (newValue != null) {
-//                         setState(() {
-//                           _tech3 = newValue;
-//                         });
-//                       }
-//                     },
-//                     items: <String>['Tech1', 'Tech2', 'Tech3', 'Tech4', 'Tech5']
-//                         .map<DropdownMenuItem<String>>((String value) {
-//                       return DropdownMenuItem<String>(
-//                         value: value,
-//                         child: Text(value),
-//                       );
-//                     }).toList(),
-//                     decoration: InputDecoration(labelText: 'アイデアテクノロジー３（任意）'),
-//                   ),
-//                   Text('ユーザーID: $_userId'),
-//                   ElevatedButton(
-//                     onPressed: _saveToDatabase,
-//                     child: Text('送信'),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
