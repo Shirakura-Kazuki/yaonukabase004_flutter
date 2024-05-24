@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yaonukabase004/src/Card/card.dart';
+import 'package:yaonukabase004/src/Card/card1.dart';
 
 class page_d extends StatelessWidget {
   @override
@@ -58,7 +58,7 @@ class page_d extends StatelessWidget {
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
-                HorizontalCardList(
+                HorizontalCardListSKV(
                   titles: List.generate(10, (index) => 'ユーザー名 $index'),
                 ),
                 Padding(
@@ -67,7 +67,7 @@ class page_d extends StatelessWidget {
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
-                HorizontalCardList(
+                HorizontalCardListSKV(
                   titles: List.generate(10, (index) => 'ユーザー名 $index'),
                 ),
               ],

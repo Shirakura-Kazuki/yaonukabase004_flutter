@@ -1,7 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:yaonukabase004/src/Card/card.dart';
+import 'package:yaonukabase004/src/Card/card1.dart';
 
 class PageA extends StatelessWidget {
+  // カードリスト用定義
+  // final List<String> titles = ['Title 1', 'Title 2', 'Title 3'];
+  // final List<String> genres = ['Genre 1', 'Genre 2', 'Genre 3'];
+  // final List<String> ideaContents = ['Content 1', 'Content 2', 'Content 3'];
+  // final List<String> photoUrls = ['assets/images/veg1.png', 'assets/images/veg2.png', 'assets/images/veg3.png'];
+  // demo用データ
+  final List<String> titles = [
+  '自動洗浄食器',
+  'スマート買い物リスト',
+  '自動植物給水器',
+  'バーチャルワードローブアシスタント',
+  '音声操作ホームアシスタント',
+  'ソーラーパワーバックパック',
+  'ポータブルワークアウトステーション',
+  'スマートアラーム時計',
+  '瞬間言語翻訳機',
+  'エコフレンドリー包装'
+];
+
+final List<String> genres = [
+  '家庭の改善',
+  'ライフスタイル',
+  'ガーデニング',
+  'ファッション',
+  'テクノロジー',
+  '旅行',
+  'フィットネス',
+  '健康',
+  'コミュニケーション',
+  '持続可能性'
+];
+
+final List<String> ideaContents = [
+  '使用後に自動で洗浄される食器。',
+  'レシピに基づいて自動的に買い物リストを生成するアプリ。',
+  '植物に最適なタイミングで給水するデバイス。',
+  '服の選択やワードローブの管理を支援するアプリ。',
+  '音声コマンドに応答するホームアシスタント。',
+  'ソーラーエネルギーでデバイスを充電するバックパック。',
+  'どこでもワークアウトができるコンパクトなポータブルステーション。',
+  '睡眠サイクルに基づいて起床時間を調整するアラーム時計。',
+  '話した言葉を瞬時に翻訳するハンドヘルドデバイス。',
+  '廃棄物を減らすための生分解性材料で作られた包装。'
+];
+
+final List<String> photoUrls = [
+  'assets/images/veg1.png',
+  'assets/images/veg2.png',
+  'assets/images/veg3.png',
+  'assets/images/veg4.png',
+  'assets/images/veg5.png',
+  'assets/images/veg6.png',
+  'assets/images/veg7.png',
+  'assets/images/veg8.png',
+  'assets/images/veg9.png',
+  'assets/images/veg10.png'
+];
+
+
+
   @override
   Widget build(BuildContext context) {
     // 画面描画
@@ -32,15 +93,24 @@ class PageA extends StatelessWidget {
                   ),
                 ),
                 HorizontalCardList(
-                  titles: List.generate(10, (index) => 'ユーザー名 $index'),
+                  titles: titles, 
+                  genres: genres, 
+                  ideaContents: ideaContents, 
+                  photoUrls: photoUrls
                 ),
+
+                // 旧バージョン
+                // HorizontalCardListSKV(
+                //   titles: List.generate(10, (index) => 'ユーザー名 $index'),
+                // ),
+
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
                   child: Text('CRAFTCONNECTS成功事例',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
-                HorizontalCardList(
+                HorizontalCardListSKV(
                   titles: List.generate(10, (index) => '事例タイトル $index'),
                 ),
               ],
@@ -51,81 +121,3 @@ class PageA extends StatelessWidget {
     );
   }
 }
-
-
-// つよつよコード
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter/gestures.dart';
-
-// class HorizontalCardList extends StatefulWidget {
-//   @override
-//   _HorizontalCardListState createState() => _HorizontalCardListState();
-// }
-
-// class _HorizontalCardListState extends State<HorizontalCardList> {
-//   final ScrollController titleController = ScrollController();
-//   final ScrollController genreController = ScrollController();
-
-//   @override
-//   void dispose() {
-//     titleController.dispose();
-//     genreController.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final screenWidth = MediaQuery.of(context).size.width;
-//     final screenHeight = MediaQuery.of(context).size.height;
-
-//     return Container(
-//       height: screenHeight * 0.4,
-//       child: Column(
-//         children: [
-//           buildList(screenWidth, "タイトル", titleController),
-//           buildList(screenWidth, "ジャンル", genreController),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget buildList(double screenWidth, String label, ScrollController controller) {
-//     return Expanded(
-//       child: Scrollbar(
-//         controller: controller,
-//         thumbVisibility: true,
-//         child: Listener(
-//           onPointerSignal: (pointerSignal) {
-//             if (pointerSignal is PointerScrollEvent) {
-//               final newOffset = controller.offset + pointerSignal.scrollDelta.dx;
-//               controller.jumpTo(newOffset.clamp(0.0, controller.position.maxScrollExtent));
-//             }
-//           },
-//           child: GestureDetector(
-//             onHorizontalDragUpdate: (details) {
-//               controller.position.moveTo(controller.offset - details.primaryDelta!);
-//             },
-//             child: ListView.builder(
-//               controller: controller,
-//               scrollDirection: Axis.horizontal,
-//               itemCount: 10,
-//               itemBuilder: (context, index) {
-//                 return InkWell(
-//                   onTap: () => print('$label $index タップされました'),
-//                   child: Card(
-//                     child: Container(
-//                       width: screenWidth * 0.3,
-//                       child: Center(child: Text('$label $index')),
-//                     ),
-//                     margin: EdgeInsets.all(10),
-//                   ),
-//                 );
-//               },
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

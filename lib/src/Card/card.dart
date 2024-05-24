@@ -1,83 +1,77 @@
-
-// widget:カード型デザイン（横スクロール※Webアプリ対応）
-// -カスタムwidget名
-// HorizontalCardList()
-// -引数
-// titles: List.generate(10, (index) => 'タイトル $index'),　//10個の要素（テキスト：タイトル0~9）
-// genres: List.generate(10, (index) => 'ジャンル $index'),　//10個の要素（テキスト：ジャンル0~9）
-//
-
-
-
 import 'package:flutter/material.dart';
-// タッチ操作用パッケージ ：Webアプリ用にタッチ操作をするためにインポート
 import 'package:flutter/gestures.dart';
-import 'package:intl/intl.dart';
+import 'dart:math';
+import 'detail_page.dart';
 
-// 横にスクロールできるカードリストを作るクラス
 class HorizontalCardList extends StatefulWidget {
-  final List<String> titles;  // カードのタイトルを入れるためのリスト
+  final List<String> titles;
+  final List<String> genres;
+  final List<String> ideaContents;  // 追加
+  final List<String> photoUrls;     // 追加
 
-  // コンストラクタ（クラスを作るときに使う関数）
   const HorizontalCardList({
     Key? key,
-    required this.titles,  // 必要な引数 titles
+    required this.titles,
+    required this.genres,
+    required this.ideaContents,  // 追加
+    required this.photoUrls,     // 追加
   }) : super(key: key);
 
-  // 状態を管理するクラスの作成
   @override
   _HorizontalCardListState createState() => _HorizontalCardListState();
 }
 
-// 状態を管理するクラス
 class _HorizontalCardListState extends State<HorizontalCardList> {
   late final ScrollController titleController;
+  late List<int> likes;
+  late List<int> calls;
+  late List<List<String>> comments;
+
+  final List<String> callImages = [
+    'assets/images/veg1.png',
+    'assets/images/veg2.png',
+  ];
 
   @override
   void initState() {
     super.initState();
-    // スクロールを管理するためのコントローラー
     titleController = ScrollController();
+    likes = List.generate(widget.titles.length, (index) => 0);
+    calls = List.generate(widget.titles.length, (index) => 0);
+    comments = List.generate(widget.titles.length, (index) => []);
   }
 
-  // クラスが削除されるときに呼ばれる
   @override
   void dispose() {
-    // メモリの無駄遣いを避けるためにコントローラーを破棄
     titleController.dispose();
     super.dispose();
   }
 
-  // 画面を作るときに呼ばれる
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;  // 画面の幅
-    final minHeight = 200.0;  // 最小の高さを200に設定
-    final minWidth = 200.0;  // 最小の幅を200に設定
+    final screenWidth = MediaQuery.of(context).size.width;
+    final minHeight = 200.0;
+    final minWidth = 200.0;
 
-    // 縦に並ぶ要素をまとめたコンテナ
     return Container(
-      height: MediaQuery.of(context).size.height * 0.4,  // 高さは画面の40%に設定
+      height: MediaQuery.of(context).size.height * 0.4,
       constraints: BoxConstraints(
-        minHeight: minHeight,  // 最小の高さを設定
+        minHeight: minHeight,
       ),
       child: Column(
         children: [
-          // 横にスクロールできるリストを作る
           buildList(screenWidth, widget.titles, titleController, minHeight, minWidth),
         ],
       ),
     );
   }
 
-  // 横にスクロールできるリストを作る関数
   Widget buildList(double screenWidth, List<String> items, ScrollController controller, double minHeight, double minWidth) {
     return Expanded(
       child: Scrollbar(
-        controller: controller,  // コントローラーを設定
-        thumbVisibility: true,  // スクロールバーを表示
+        controller: controller,
+        thumbVisibility: true,
         child: Listener(
-          // スクロールの方向を感知する
           onPointerSignal: (pointerSignal) {
             if (pointerSignal is PointerScrollEvent) {
               final newOffset = controller.offset + pointerSignal.scrollDelta.dx;
@@ -85,44 +79,48 @@ class _HorizontalCardListState extends State<HorizontalCardList> {
             }
           },
           child: GestureDetector(
-            // 水平ドラッグ（横方向にドラッグ）で動くようにする
             onHorizontalDragUpdate: (details) {
               controller.position.moveTo(controller.offset - details.primaryDelta!);
             },
             child: ListView.builder(
-              controller: controller,  // コントローラーを設定
-              scrollDirection: Axis.horizontal,  // 横にスクロールする
-              itemCount: items.length,  // リストの要素の数
+              controller: controller,
+              scrollDirection: Axis.horizontal,
+              itemCount: items.length,
               itemBuilder: (context, index) {
                 return InkWell(
-                  // カードがタップされたときの処理
-                  onTap: () => print('${items[index]} タップされました'),
-                  child: Card(
-                    // カードの中身
-                    child: Container(
-                      width: screenWidth * 0.13,  // 幅は画面の30%に設定
-                      constraints: BoxConstraints(
-                        minHeight: minHeight,  // 最小の高さを設定
-                        minWidth: minWidth,  // 最小の幅を設定
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailPage(
+                          title: widget.titles[index],
+                          genre: widget.genres[index],
+                          ideaContent: widget.ideaContents[index],  // 追加
+                          photoUrl: widget.photoUrls[index],        // 追加
+                        ),
                       ),
-                      // // 中央にタイトルを表示
-                      // child: Center(child: Text(items[index])),
+                    );
+                  },
+                  child: Card(
+                    child: Container(
+                      width: screenWidth * 0.13,
+                      constraints: BoxConstraints(
+                        minHeight: minHeight,
+                        minWidth: minWidth,
+                      ),
                       child: Column(
                         children: [
-                          // アイコンとタイトル
                           Row(
                             children: <Widget>[
-                              Icon(Icons.account_circle, size: 50),  // アイコン
+                              Icon(Icons.account_circle, size: 50),
                               SizedBox(width: 10),
                               Expanded(child: Text(items[index], style: TextStyle(fontSize: 20))),
                             ],
                           ),
-                          // アイデア内容と写真
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('アイデア内容'),
-
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(10, 20, 0, 20),
                                 child: Container(
@@ -130,32 +128,45 @@ class _HorizontalCardListState extends State<HorizontalCardList> {
                                   height: 85,
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                      color: Colors.black,width: 2,
-                                    )
+                                      color: Colors.black, width: 2,
+                                    ),
                                   ),
                                   child: Text('写真'),
                                 ),
-                              )
+                              ),
                             ],
                           ),
-                          // スコア表示
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              // いいね
-                              buildScore(Icons.thumb_up, 15),
-                              // 通話
-                              buildScore(Icons.phone, 15),
-                              // チェック
-                              buildScore(Icons.check, 15),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    likes[index]++;
+                                  });
+                                },
+                                child: buildScore(Icons.thumb_up, likes[index]),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    calls[index]++;
+                                  });
+                                },
+                                child: buildRandomImageScore(callImages),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  _showCommentModal(context, index);
+                                },
+                                child: buildScore(Icons.check, comments[index].length),
+                              ),
                             ],
                           ),
-                          // 日付と時刻
-                          Text(DateFormat('yyyy/MM/dd HH:mm:ss').format(DateTime.now()), style: TextStyle(color: Colors.grey)),
                         ],
                       ),
                     ),
-                    margin: EdgeInsets.all(10),  // カードの周りに余白を設定
+                    margin: EdgeInsets.all(10),
                   ),
                 );
               },
@@ -165,10 +176,8 @@ class _HorizontalCardListState extends State<HorizontalCardList> {
       ),
     );
   }
-}
 
-// スコア用のウィジェット
-Widget buildScore(IconData icon, int count) {
+  Widget buildScore(IconData icon, int count) {
     return Row(
       children: <Widget>[
         Icon(icon, color: Colors.blue),
@@ -177,3 +186,49 @@ Widget buildScore(IconData icon, int count) {
       ],
     );
   }
+
+  Widget buildRandomImageScore(List<String> images) {
+    final random = Random();
+    final imagePath = images[random.nextInt(images.length)];
+    return Row(
+      children: <Widget>[
+        Image.asset(imagePath, width: 24, height: 24),
+        SizedBox(width: 4),
+        Text(''),
+      ],
+    );
+  }
+
+  void _showCommentModal(BuildContext context, int index) {
+    final TextEditingController commentController = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('コメントを追加'),
+          content: TextField(
+            controller: commentController,
+            decoration: InputDecoration(hintText: 'コメントを入力してください'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('キャンセル'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('追加'),
+              onPressed: () {
+                setState(() {
+                  comments[index].add(commentController.text);
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
