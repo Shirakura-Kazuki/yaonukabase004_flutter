@@ -46,16 +46,39 @@ class _LoginPageState extends State<LoginPage> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   //topページロゴ画像
-                  Container(
-                    width: _deviceHeight! * 0.35,
-                    height: _deviceHeight! * 0.2,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/toplogo.png'),
-                        fit: BoxFit.fitWidth,
+                  GestureDetector(
+                    onTap: (){
+                      showDialog(
+                        context: context, 
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('バージョン情報'),
+                            content: Text('現在のバージョンは\nver.1.0.0です。\nスワイプ無効'),
+                            actions: [
+                              TextButton(
+                                 child: Text('OK'),
+                                onPressed:(){
+                                  Navigator.of(context).pop();
+                                }
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: 
+                      Container(
+                        width: _deviceHeight! * 0.35,
+                        height: _deviceHeight! * 0.2,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/toplogo.png'),
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
                       ),
-                    ),
                   ),
+                  
                   // 1行目 メールアドレス入力用テキストフィールド
                   Padding(
                     padding: const EdgeInsets.all(8.0),

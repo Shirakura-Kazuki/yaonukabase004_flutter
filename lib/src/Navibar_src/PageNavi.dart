@@ -32,6 +32,8 @@ class NaviApp extends StatelessWidget {
           )
         ),
         body:  TabBarView(
+          // ナビゲーションバースワイプ操作無効
+          physics: NeverScrollableScrollPhysics(),
           children: [
             PageA(),
             // HorizontalCardListWithButton(),
