@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
 
 class form_page extends StatefulWidget {
   const form_page({super.key});
@@ -22,6 +25,7 @@ class _form_pageState extends State<form_page> {
   String _tech2 = '未選択';
   String _tech3 = '未選択';
   String _userId = 'guest';
+  String _userrole = 'Loading...'; // ユーザー役割名を表示するための変数
   late String _formattedDate;
   
   @override
@@ -30,13 +34,53 @@ class _form_pageState extends State<form_page> {
     _formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
     _initializeUser();
   }
-
-  void _initializeUser() {
-    final User? user = _auth.currentUser;
+void _initializeUser(){
+  final User?user = _auth.currentUser;
+  if(user != null){
     setState(() {
-      _userId = user?.uid ?? 'PEsrLPjXDOXnLqHTkYDFkIt2Fbo1';  //テスト用ユーザーID
+      _userId = user.uid;
     });
+    _fetchUserRole(user.uid);
   }
+}
+  // void _initializeUser() {
+  //   final User? user = _auth.currentUser;
+  //   setState(() {
+  //     _userId = user?.uid ?? 'PEsrLPjXDOXnLqHTkYDFkIt2Fbo1';  //テスト用ユーザーID
+  //   });
+  // }
+    // firebaseデータ取得
+  Future<void> _fetchUserRole(String uid) async {
+    try {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      setState(() {
+        _userrole = userDoc['role'] ?? 'No userrole found'; // Firestoreからユーザー役割を取得
+      });
+    } catch (e) {
+      print('エラーが発生しました: $e');
+      setState(() {
+        _userrole = 'Error fetching userrole';
+      });
+    }
+  }
+  // // firebaseデータ取得
+  // Future<void> _fetchUsername() async {
+  //   try {
+  //     User? user = FirebaseAuth.instance.currentUser;
+  //     if (user != null) {
+  //       DocumentSnapshot userDoc =
+  //           await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+  //       setState(() {
+  //         _userrole = userDoc['role'] ?? 'No userrole found'; // Firestoreからユーザー役割を取得
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print('エラーが発生しました: $e');
+  //     setState(() {
+  //       _userrole = 'Error fetching userrole';
+  //     });
+  //   }
+  // }
 
   Future<void> _saveToDatabase() async {
     var body = json.encode({
@@ -48,7 +92,8 @@ class _form_pageState extends State<form_page> {
       'ideatechnology2': _tech2,
       'ideatechnology3': _tech3,
       // 'userid': 'PEsrLPjXDOXnLqHTkYDFkIt2Fbo1'
-      'userid': _userId
+      'userid': _userId,
+      "usertype":_userrole,
     });
 
     print("Sending Data: $body");
@@ -275,10 +320,10 @@ class _form_pageState extends State<form_page> {
                   // ユーザーID
                   Text('ユーザーID: $_userId'),
                   SizedBox(height: 30),
-                    // 投稿時間
+                  // 投稿時間
                   Text('投稿時間: $_formattedDate'),
                   SizedBox(height: 20),
-
+                  Text('アカウントタイプ:$_userrole'),
 
                   // 送信ボタン
                   SizedBox(
@@ -323,7 +368,7 @@ class _form_pageState extends State<form_page> {
           });
         }
       },
-      items: <String>['未選択','Tech1', 'Tech2', 'Tech3', 'Tech4', 'Tech5']
+      items: <String>['未選択', '機械加工', '金属加工', '電子機器製造', '航空宇宙製造', 'プラスチック加工', '繊維製造']
           .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,

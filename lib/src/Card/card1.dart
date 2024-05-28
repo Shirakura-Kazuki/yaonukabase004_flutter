@@ -100,7 +100,7 @@ class _HorizontalCardListSKVState extends State<HorizontalCardListSKV> {
                   child: Card(
                     // カードの中身
                     child: Container(
-                      width: screenWidth * 0.13,  // 幅は画面の30%に設定
+                      width: screenWidth * 0.13, 
                       constraints: BoxConstraints(
                         minHeight: minHeight,  // 最小の高さを設定
                         minWidth: minWidth,  // 最小の幅を設定
