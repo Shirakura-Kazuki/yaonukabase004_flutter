@@ -170,12 +170,12 @@ class _HorizontalCardListState extends State<HorizontalCardList> {
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      likes[index]++;
+                                      likes[index] = likes[index] == 0 ? 1 : 0; //ここ変更点: 「イイネ」数を増減させるロジックを追加しました。
                                     });
                                   },
                                   //レスポンシブ用変更箇所
                                   child: buildScore(Icons.thumb_up, likes[index], iconSize),
-                                ),
+                                ), //ここまで追加
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
@@ -267,7 +267,6 @@ class _HorizontalCardListState extends State<HorizontalCardList> {
 }
 
 
-
 // import 'package:flutter/material.dart';
 // import 'package:flutter/gestures.dart';
 // import 'dart:math';
@@ -357,6 +356,14 @@ class _HorizontalCardListState extends State<HorizontalCardList> {
 //               scrollDirection: Axis.horizontal,
 //               itemCount: items.length,
 //               itemBuilder: (context, index) {
+//                 //レスポンシブ用変更箇所
+//                 final cardWidth = screenWidth * 0.21;
+//                 final avatarRadius = cardWidth * 0.1;
+//                 final iconSize = cardWidth * 0.08;
+//                 final fontSizeTitle = cardWidth * 0.07;
+//                 final fontSizeGenre = cardWidth * 0.05;
+//                 final fontSizeContent = cardWidth * 0.045;
+
 //                 return InkWell(
 //                   onTap: () {
 //                     Navigator.push(
@@ -372,71 +379,94 @@ class _HorizontalCardListState extends State<HorizontalCardList> {
 //                     );
 //                   },
 //                   child: Card(
+//                     shape: RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.circular(15),
+//                     ),
+//                     elevation: 5,
+//                     margin: EdgeInsets.all(10),
 //                     child: Container(
-//                       width: screenWidth * 0.13,
+//                       //レスポンシブ用変更箇所
+//                       width: cardWidth, // 初期幅を現在の3分の1に調整
 //                       constraints: BoxConstraints(
 //                         minHeight: minHeight,
 //                         minWidth: minWidth,
 //                       ),
-//                       child: Column(
-//                         children: [
-//                           Row(
-//                             children: <Widget>[
-//                               Icon(Icons.account_circle, size: 50),
-//                               SizedBox(width: 10),
-//                               Expanded(child: Text(items[index], style: TextStyle(fontSize: 20))),
-//                             ],
-//                           ),
-//                           Row(
-//                             mainAxisAlignment: MainAxisAlignment.center,
-//                             children: [
-//                               Text('アイデア内容'),
-//                               Padding(
-//                                 padding: const EdgeInsets.fromLTRB(10, 20, 0, 20),
-//                                 child: Container(
-//                                   width: 85,
-//                                   height: 85,
-//                                   decoration: BoxDecoration(
-//                                     border: Border.all(
-//                                       color: Colors.black, width: 2,
+//                       child: Padding(
+//                         padding: const EdgeInsets.all(8.0),
+//                         child: Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             Row(
+//                               children: <Widget>[
+//                                 //レスポンシブ用変更箇所
+//                                 CircleAvatar(
+//                                   backgroundImage: AssetImage(widget.photoUrls[index]),
+//                                   radius: avatarRadius,
+//                                 ),
+//                                 SizedBox(width: 10),
+//                                 //レスポンシブ用変更箇所
+//                                 Expanded(
+//                                   child: Text(widget.titles[index],
+//                                     style: TextStyle(
+//                                       fontSize: fontSizeTitle,
+//                                       fontWeight: FontWeight.bold,
 //                                     ),
 //                                   ),
-//                                   child: Text('写真'),
 //                                 ),
+//                               ],
+//                             ),
+//                             SizedBox(height: 10),
+//                             //レスポンシブ用変更箇所
+//                             Text(
+//                               widget.genres[index],
+//                               style: TextStyle(
+//                                 fontSize: fontSizeGenre,
+//                                 color: Colors.grey[700],
 //                               ),
-//                             ],
-//                           ),
-//                           Row(
-//                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                             children: <Widget>[
-//                               GestureDetector(
-//                                 onTap: () {
-//                                   setState(() {
-//                                     likes[index]++;
-//                                   });
-//                                 },
-//                                 child: buildScore(Icons.thumb_up, likes[index]),
+//                             ),
+//                             SizedBox(height: 10),
+//                             //レスポンシブ用変更箇所
+//                             Text(
+//                               widget.ideaContents[index],
+//                               style: TextStyle(
+//                                 fontSize: fontSizeContent,
 //                               ),
-//                               GestureDetector(
-//                                 onTap: () {
-//                                   setState(() {
-//                                     calls[index]++;
-//                                   });
-//                                 },
-//                                 child: buildRandomImageScore(callImages),
-//                               ),
-//                               GestureDetector(
-//                                 onTap: () {
-//                                   _showCommentModal(context, index);
-//                                 },
-//                                 child: buildScore(Icons.check, comments[index].length),
-//                               ),
-//                             ],
-//                           ),
-//                         ],
+//                             ),
+//                             Spacer(),
+//                             Row(
+//                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                               children: <Widget>[
+//                                 GestureDetector(
+//                                   onTap: () {
+//                                     setState(() {
+//                                       likes[index]++;
+//                                     });
+//                                   },
+//                                   //レスポンシブ用変更箇所
+//                                   child: buildScore(Icons.thumb_up, likes[index], iconSize),
+//                                 ),
+//                                 GestureDetector(
+//                                   onTap: () {
+//                                     setState(() {
+//                                       calls[index]++;
+//                                     });
+//                                   },
+//                                   //レスポンシブ用変更箇所
+//                                   child: buildRandomImageScore(callImages, iconSize),
+//                                 ),
+//                                 GestureDetector(
+//                                   onTap: () {
+//                                     _showCommentModal(context, index);
+//                                   },
+//                                   //レスポンシブ用変更箇所
+//                                   child: buildScore(Icons.comment, comments[index].length, iconSize),
+//                                 ),
+//                               ],
+//                             ),
+//                           ],
+//                         ),
 //                       ),
 //                     ),
-//                     margin: EdgeInsets.all(10),
 //                   ),
 //                 );
 //               },
@@ -447,22 +477,24 @@ class _HorizontalCardListState extends State<HorizontalCardList> {
 //     );
 //   }
 
-//   Widget buildScore(IconData icon, int count) {
+//   //レスポンシブ用変更箇所
+//   Widget buildScore(IconData icon, int count, double iconSize) {
 //     return Row(
 //       children: <Widget>[
-//         Icon(icon, color: Colors.blue),
+//         Icon(icon, color: Colors.blue, size: iconSize),
 //         SizedBox(width: 4),
 //         Text('$count'),
 //       ],
 //     );
 //   }
 
-//   Widget buildRandomImageScore(List<String> images) {
+//   //レスポンシブ用変更箇所
+//   Widget buildRandomImageScore(List<String> images, double iconSize) {
 //     final random = Random();
 //     final imagePath = images[random.nextInt(images.length)];
 //     return Row(
 //       children: <Widget>[
-//         Image.asset(imagePath, width: 24, height: 24),
+//         Image.asset(imagePath, width: iconSize, height: iconSize),
 //         SizedBox(width: 4),
 //         Text(''),
 //       ],
@@ -502,3 +534,6 @@ class _HorizontalCardListState extends State<HorizontalCardList> {
 //     );
 //   }
 // }
+
+
+

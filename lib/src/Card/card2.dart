@@ -15,11 +15,13 @@ class HorizontalCardLists extends StatefulWidget {
 
 class _HorizontalCardListsState extends State<HorizontalCardLists> {
   late final ScrollController titleController;
+  late List<int> likes; // ここ変更点: 各カードの「イイネ」数を保持するリスト
 
   @override
   void initState() {
     super.initState();
     titleController = ScrollController();
+    likes = List.generate(widget.titles.length, (index) => 0); // ここ変更点: 各カードの「イイネ」数を0で初期化
   }
 
   @override
@@ -47,13 +49,13 @@ class _HorizontalCardListsState extends State<HorizontalCardLists> {
         ),
         itemCount: widget.titles.length,
         itemBuilder: (context, index) {
-          return buildCard(widget.titles[index], cardWidth);
+          return buildCard(widget.titles[index], cardWidth, index); // ここ変更点: indexを渡す
         },
       ),
     );
   }
 
-  Widget buildCard(String title, double width) {
+  Widget buildCard(String title, double width, int index) { // ここ変更点: indexを追加
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -83,7 +85,14 @@ class _HorizontalCardListsState extends State<HorizontalCardLists> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                buildScore(Icons.thumb_up, 15),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      likes[index] = likes[index] == 0 ? 1 : 0; // ここ変更点: 「イイネ」数を増減させるロジック
+                    });
+                  },
+                  child: buildScore(Icons.thumb_up, likes[index]), // ここ変更点: likes[index]を表示
+                ),
                 buildScore(Icons.phone, 15),
                 buildScore(Icons.check, 15),
               ],

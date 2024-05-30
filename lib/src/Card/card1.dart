@@ -144,6 +144,7 @@ class _HorizontalCardListSKVState extends State<HorizontalCardListSKV> {
                             children: <Widget>[
                               // いいね
                               buildScore(Icons.thumb_up, 15),
+                              
                               // 通話
                               buildScore(Icons.phone, 15),
                               // チェック

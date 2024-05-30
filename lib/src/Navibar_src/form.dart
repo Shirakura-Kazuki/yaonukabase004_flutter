@@ -41,8 +41,41 @@ void _initializeUser(){
       _userId = user.uid;
     });
     _fetchUserRole(user.uid);
+    _fetchUserData();
   }
 }
+
+Future<void> _fetchUserData() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        // APIからデータを取得
+        final response = await http.get(
+          Uri.parse('https://guser.azurewebsites.net/api/get_user?userid=${user.uid}'),
+          headers: {'Content-Type': 'application/json'},
+        );
+
+        if (response.statusCode == 201) {
+          final data = json.decode(response.body);
+          print('APIレスポンス: ${response.body}');
+          setState(() {
+            _userrole = data['usertype'] ?? 'No userrole found';
+          });
+        } else {
+          print('APIリクエスト失敗: ${response.statusCode}');
+          setState(() {
+            _userrole = 'Error fetching userrole';
+          });
+        }
+      }
+    } catch (e) {
+      print('エラーが発生しました: $e');
+      setState(() {
+        _userrole = 'Error fetching userrole';
+      });
+    }
+  }
+
   // void _initializeUser() {
   //   final User? user = _auth.currentUser;
   //   setState(() {
@@ -63,24 +96,7 @@ void _initializeUser(){
       });
     }
   }
-  // // firebaseデータ取得
-  // Future<void> _fetchUsername() async {
-  //   try {
-  //     User? user = FirebaseAuth.instance.currentUser;
-  //     if (user != null) {
-  //       DocumentSnapshot userDoc =
-  //           await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-  //       setState(() {
-  //         _userrole = userDoc['role'] ?? 'No userrole found'; // Firestoreからユーザー役割を取得
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print('エラーが発生しました: $e');
-  //     setState(() {
-  //       _userrole = 'Error fetching userrole';
-  //     });
-  //   }
-  // }
+
 
   Future<void> _saveToDatabase() async {
     var body = json.encode({
@@ -323,7 +339,7 @@ void _initializeUser(){
                   // 投稿時間
                   Text('投稿時間: $_formattedDate'),
                   SizedBox(height: 20),
-                  Text('アカウントタイプ:$_userrole'),
+                  Text('アカウントタイプ:$_userrole'),  //APIで取得する
 
                   // 送信ボタン
                   SizedBox(
