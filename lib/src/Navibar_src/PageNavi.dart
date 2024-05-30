@@ -37,7 +37,7 @@ class NaviApp extends StatelessWidget {
           children: [
             PageA(),
             // HorizontalCardListWithButton(),
-            page_b(),
+            PageB(),
             page_c(),
             page_d(),
             User_Info(),
