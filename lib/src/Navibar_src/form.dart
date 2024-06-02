@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+import 'package:yaonukabase004/providers/user_provider.dart';
 
 
 
@@ -40,9 +42,15 @@ void _initializeUser(){
     setState(() {
       _userId = user.uid;
     });
-    _fetchUserRole(user.uid);
+    // _fetchUserRole(user.uid);
     _fetchUserData();
+    _fetchUserData_AZ();
   }
+}
+
+// Azureからユーザー情報の取得
+Future<void> _fetchUserData_AZ() async {
+    await Provider.of<UserProvider>(context, listen: false).fetchUserData();
 }
 
 Future<void> _fetchUserData() async {
@@ -82,20 +90,20 @@ Future<void> _fetchUserData() async {
   //     _userId = user?.uid ?? 'PEsrLPjXDOXnLqHTkYDFkIt2Fbo1';  //テスト用ユーザーID
   //   });
   // }
-    // firebaseデータ取得
-  Future<void> _fetchUserRole(String uid) async {
-    try {
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
-      setState(() {
-        _userrole = userDoc['role'] ?? 'No userrole found'; // Firestoreからユーザー役割を取得
-      });
-    } catch (e) {
-      print('エラーが発生しました: $e');
-      setState(() {
-        _userrole = 'Error fetching userrole';
-      });
-    }
-  }
+  //   // firebaseデータ取得
+  // Future<void> _fetchUserRole(String uid) async {
+  //   try {
+  //     DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+  //     setState(() {
+  //       _userrole = userDoc['role'] ?? 'No userrole found'; // Firestoreからユーザー役割を取得
+  //     });
+  //   } catch (e) {
+  //     print('エラーが発生しました: $e');
+  //     setState(() {
+  //       _userrole = 'Error fetching userrole';
+  //     });
+  //   }
+  // }
 
 
   Future<void> _saveToDatabase() async {
@@ -161,6 +169,8 @@ Future<void> _fetchUserData() async {
   @override
   Widget build(BuildContext context) {
     _deviceWidth = MediaQuery.of(context).size.width;
+
+     final user = Provider.of<UserProvider>(context).user;
 
     return Scaffold(
       appBar: AppBar(
@@ -339,7 +349,18 @@ Future<void> _fetchUserData() async {
                   // 投稿時間
                   Text('投稿時間: $_formattedDate'),
                   SizedBox(height: 20),
-                  Text('アカウントタイプ:$_userrole'),  //APIで取得する
+
+                  // Text('アカウントタイプ:$_userrole'),  //APIで取得する
+                  Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: Text(
+                      'アカウントタイプ：${user?.usertype ?? 'Loading...'}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        // fontSize: constraints.maxHeight * 0.09,
+                      ),
+                    ),
+                  ),
 
                   // 送信ボタン
                   SizedBox(

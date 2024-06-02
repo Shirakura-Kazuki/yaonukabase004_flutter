@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:yaonukabase004/firebase_options.dart';
+import 'package:yaonukabase004/providers/user_provider.dart';
 import 'package:yaonukabase004/src/Navibar_src/form.dart';
 import 'package:yaonukabase004/src/newUser/createnew.dart';
 import 'package:yaonukabase004/src/newUser/login.dart';
@@ -13,7 +15,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) =>UserProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 //アプリのルートクラス

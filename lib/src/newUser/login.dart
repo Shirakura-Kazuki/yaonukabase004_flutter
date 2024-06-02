@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: Text('バージョン情報'),
-                              content: Text('現在のバージョンは\nver.1.0.1です。\n範囲外スクロール修正'),
+                              content: Text('現在のバージョンは\nver.1.1.1です。\n保科暴走修正'),
                               actions: [
                                 TextButton(
                                   child: Text('OK'),
@@ -160,6 +160,26 @@ class _LoginPageState extends State<LoginPage> {
                               }
                             } catch (e) {
                               print(e);
+
+                              // ここから変更点: ログイン失敗時のダイアログ表示
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('ログイン失敗'),
+                                    content: Text('メールアドレスまたはパスワードが正しくありません。'),
+                                    actions: [
+                                      TextButton(
+                                        child: Text('OK'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                              // ここまで追加
                             }
                           },
                           child: FittedBox(
@@ -175,49 +195,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: SizedBox(
-                    //     width: _deviceWidth! * 0.25,
-                    //     child: ElevatedButton(
-                    //       child: const AutoSizeText(
-                    //         'ログイン',
-                    //         maxLines: 1,
-                    //           style: TextStyle(
-                    //             fontSize: 20,
-                    //           ),
-                    //         ),
-                    //         style: ElevatedButton.styleFrom(
-                    //           backgroundColor: Colors.deepOrange.shade900,
-                    //           foregroundColor: Colors.white,
-                    //         ),
-                    //       onPressed: () async {
-                    //         try {
-                    //           final UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    //             email: _email,
-                    //             password: _password,
-                    //           );
-                    //           final User? user = userCredential.user;
-                    //           if (user != null) {
-                    //             print("ログインしました ${user.email}, ${user.uid}");
-                    //             setState(() {
-                    //               _uid_num = user.uid; // 安全にUIDを取得
-                    //               print('現在のユーザーのUIDは:$_uid_num');
-                    //             });
-                    //             Navigator.push(
-                    //               context,
-                    //               MaterialPageRoute(builder: (context) => NaviApp()),
-                    //             );
-                    //           } else {
-                    //             print("ユーザーが見つかりません。");
-                    //           }
-                    //         } catch (e) {
-                    //           print(e);
-                    //         }
-                    //       },
-                    //     ),
-                    //   ),
-                    // ),
                         const Text('アカウントが未登録ですか？'),
                         // ユーザ登録ボタン
                         TextButton(

@@ -130,6 +130,23 @@ class _UserAddPageState extends State<UserAddPage> {
 
         } else {
           print("エラーが発生しました: ${response.body}");
+           showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('ログイン失敗'),
+              content: Text('メールアドレスまたはパスワードが正しくありません。\n再度入力し直してください。マジで'),
+              actions: [
+                TextButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
         }
       } else {
         print("ユーザー登録に失敗しました。");
