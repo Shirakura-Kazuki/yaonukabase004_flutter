@@ -154,16 +154,16 @@ class _coordinatorState extends State<coordinator> {
         // JSONデータを生成
         var requestBody = json.encode({
           'userid': _uid,
-          'username':'',
-          'usertype': 'Company',
+          'username':_name,
+          'usertype': 'Coordinator',
           'createdat': _currentDateTime,
-          'userprofile': '',
+          'userprofile': _profile,
           'numberofpoints': 0,
           'companyname': '', 
-          'companyprofile': _profile,
+          'companyprofile': '',
           'companyfield': '',
-          'companyskill': '', //技術
-          'coordinatorname': _name,
+          'companyskill': '', 
+          // 'coordinatorname': _name,
           'coordinatorskillname': _tech1, 
           'coordinatorfieldname': _tech2, 
         });
@@ -374,7 +374,7 @@ class _coordinatorState extends State<coordinator> {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
                                 child: Text(
-                                  '企業名を入力してください',
+                                  'ユーザー名を入力してください',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15,

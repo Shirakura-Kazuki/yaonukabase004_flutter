@@ -17,6 +17,10 @@ class _PageBState extends State<PageB> {
   List<String> ideaContents = [];
   List<String> photoUrls = [];
   bool isLoading = true;
+  List<int> colorNumbers = [];  //カラー取得
+  List<int> ideaId= [];  //アイデアID取得
+  List<int> numberoflikes =[];
+
 
   @override
   void initState() {
@@ -36,13 +40,23 @@ class _PageBState extends State<PageB> {
         final Map<String, dynamic> responseData = json.decode(response.body);
         final List<dynamic> data = responseData['data'];
         
-        setState(() {
-          titles = data.map((item) => item['ideaname'] as String).toList();
-          genres = data.map((item) => item['ideatechnology1'] as String).toList(); // 例として技術1をジャンルとしています
-          ideaContents = data.map((item) => item['ideaconcept'] as String).toList();
+         setState(() {
+          titles = data.map((item) => item['ideaname'].toString()).toList();
+          genres = data.map((item) => item['ideatechnology1'].toString()).toList(); // 例として技術1をジャンルとしています
+          ideaContents = data.map((item) => item['ideaconcept'].toString()).toList();
           photoUrls = List.generate(data.length, (index) => 'assets/images/veg${index % 10 + 1}.png');
           isLoading = false;
+          colorNumbers = data.map((item) => item['ideacolornumber'] as int).toList(); //カラー取得
+          ideaId = data.map((item) => item['id'] as int).toList(); //IDの取得
+          numberoflikes = data.map((item) => item['numberoflikes'] as int).toList();
         });
+        // setState(() {
+        //   titles = data.map((item) => item['ideaname'] as String).toList();
+        //   genres = data.map((item) => item['ideatechnology1'] as String).toList(); // 例として技術1をジャンルとしています
+        //   ideaContents = data.map((item) => item['ideaconcept'] as String).toList();
+        //   photoUrls = List.generate(data.length, (index) => 'assets/images/veg${index % 10 + 1}.png');
+        //   isLoading = false;
+        // });
 
         print('取得したデータ: $responseData');
       } else {
@@ -124,6 +138,11 @@ class _PageBState extends State<PageB> {
                     ),
                     HorizontalCardLists(
                       titles: titles,
+                      colorNumbers :colorNumbers,
+                      ideaId :ideaId,
+                      // numberoflikes : likeNum,
+                      likeNum : numberoflikes,
+
                     ),
                   ],
                 ),

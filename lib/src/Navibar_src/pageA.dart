@@ -7,6 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:yaonukabase004/src/Card/card_custom.dart';
+
 class PageA extends StatefulWidget {
   @override
   _PageAState createState() => _PageAState();
@@ -152,8 +154,8 @@ class _PageAState extends State<PageA> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              HorizontalCardListSKV(
-                titles: List.generate(10, (index) => '事例タイトル $index'),
+              CustomCardList(
+                titles: List.generate(10, (index) => '事例 NO.$index')
               ),
             ],
           ),

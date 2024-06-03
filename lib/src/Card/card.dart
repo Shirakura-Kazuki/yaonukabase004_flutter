@@ -94,7 +94,8 @@ class _HorizontalCardListState extends State<HorizontalCardList> {
                 final fontSizeTitle = cardWidth * 0.07;
                 final fontSizeGenre = cardWidth * 0.05;
                 final fontSizeContent = cardWidth * 0.045;
-
+                
+                // ページ遷移アクション
                 return InkWell(
                   onTap: () {
                     Navigator.push(

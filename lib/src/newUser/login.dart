@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: Text('バージョン情報'),
-                              content: Text('現在のバージョンは\nver.1.1.1です。\n保科暴走修正'),
+                              content: Text('現在のバージョンは\nver.1.2.2です。\n保科パイセンブチギレ版'),
                               actions: [
                                 TextButton(
                                   child: Text('OK'),

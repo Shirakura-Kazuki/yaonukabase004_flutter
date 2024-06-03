@@ -79,7 +79,7 @@ class _User_InfoState extends State<User_Info> {
                                 'ユーザー名：${user?.username ?? 'Loading...'}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: constraints.maxHeight * 0.03,
+                                  fontSize: constraints.maxHeight * 0.1,
                                 ),
                               ),
                             ),
@@ -89,7 +89,7 @@ class _User_InfoState extends State<User_Info> {
                                 'アカウントタイプ：${user?.usertype ?? 'Loading...'}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: constraints.maxHeight * 0.03,
+                                  fontSize: constraints.maxHeight * 0.1,
                                 ),
                               ),
                             ),
