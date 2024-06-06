@@ -123,7 +123,7 @@ class _CustomCardListState extends State<CustomCardList> {
                                     )
                                   ),
                                   child:Image.asset(
-                                    'assets/images/bottomimage.png',
+                                    'assets/images/bottomimage.png', //画像
                                     fit: BoxFit.cover,
                                   ),
                                 ),

@@ -3,13 +3,14 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"assets/AssetManifest.bin": "25e7a34f83979aa2cfec9f79c62de817",
-"assets/AssetManifest.bin.json": "1c8d2df94720cd9925346269c37faaaa",
-"assets/AssetManifest.json": "069ef4ae5ea4114af0dd9671475caccd",
+const RESOURCES = {"assets/AssetManifest.bin": "a2b173f4f670e571b1fba5467bcb2ac2",
+"assets/AssetManifest.bin.json": "e72c6e893e501502988b4518d419514e",
+"assets/AssetManifest.json": "5ee97c574cce32207c250a9759c94a84",
 "assets/assets/images/bottomimage.png": "0ca5ceee83a43e94f44bbf331b150122",
 "assets/assets/images/google_logo_icon.png": "206438fa5bf135a3ed09d9ac810a5bb4",
-"assets/assets/images/icon_asample.png": "b2f3f879de6196966a32873fb740be14",
 "assets/assets/images/icon_sample.png": "5435575127e26072ade627288a8d3167",
+"assets/assets/images/mynukaadd.png": "00a4325e0c083ad344a6b90dcf63e060",
+"assets/assets/images/notmynuka.png": "b659e491755027ce33104ee98e184e8a",
 "assets/assets/images/toplogo.png": "7ad61770c9e1ca72a017e57bc06443e2",
 "assets/assets/images/veg1.png": "b2d8a34caf55c5d15d5be96f4389cd04",
 "assets/assets/images/veg10.png": "aaeacd12d6fb69e78c6bace98a10c810",
@@ -42,9 +43,9 @@ const RESOURCES = {"assets/AssetManifest.bin": "25e7a34f83979aa2cfec9f79c62de817
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "222da4129a087d5eaf3b61ead9e3d2f8",
-"/": "222da4129a087d5eaf3b61ead9e3d2f8",
-"main.dart.js": "f931122631707aa2fe555ce11758a907",
+"index.html": "d23df6d662e93e3f31bd9f83ad8d8a57",
+"/": "d23df6d662e93e3f31bd9f83ad8d8a57",
+"main.dart.js": "fcb648728fb69972d04913060087ca5a",
 "manifest.json": "8a313bd18c9c92c9fbef36df02ea80dd",
 "version.json": "782e07cc58cbbb8d46c8432c56c58fed"};
 // The application shell files that are downloaded before a service worker can

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:yaonukabase004/firebase_options.dart';
 import 'package:yaonukabase004/providers/user_provider.dart';
 import 'package:yaonukabase004/src/Navibar_src/form.dart';
+import 'package:yaonukabase004/src/Navibar_src/pageB.dart';
 import 'package:yaonukabase004/src/newUser/createnew.dart';
 import 'package:yaonukabase004/src/newUser/login.dart';
 import 'package:yaonukabase004/src/newUser/roleoption/useradd.dart';
@@ -42,8 +43,9 @@ class MyApp extends StatelessWidget {
       // home: NaviApp(),
       //開発環境用:ホームを設定する
       home: LoginPage(), // ログインページに変更
-      // home: form_page(),
+      // home: PageB(),
       // home: UserAddPage(),
+
     );
   }
 }

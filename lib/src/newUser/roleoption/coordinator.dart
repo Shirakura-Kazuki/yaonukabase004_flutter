@@ -72,7 +72,7 @@ class _coordinatorState extends State<coordinator> {
 
 
   // プルダウンメニューの選択肢
-  final List<String> menuItems1 = ['未選択', '機械加工', '金属加工', '電子機器製造', '航空宇宙製造', 'プラスチック加工', '繊維製造']; //主メニュー
+  final List<String> menuItems1 = ['未選択', '機械加工', '金属加工', '電子機器製造', '航空宇宙製造', 'プラスチック加工', '繊維製造','食品加工','科学製品製造','建設業','エネルギー産業','家具製造']; //主メニュー
   final List<String> menuItems2 = ['未選択']; //未設定
   final List<String> menuItems3 = ['未選択', '旋盤加工', 'フライス加工', '放電加工', '研削加工', '熱処理', '金型設計と製造', 'CAD/CAMプログラミング', 'CNC制御']; //機械加工
   final List<String> menuItems4 = ['未選択', '鋳造', '鍛造', '溶接', '板金加工', '金属プレス', 'パウダーメタル成形', '表面処理（メッキ、塗装）', 'レーザー切断']; //金属加工
