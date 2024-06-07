@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -277,8 +278,8 @@ class _HorizontalCardListsState extends State<HorizontalCardLists> {
       ],
     );
   }
-
 }
+
 
 // import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
@@ -324,7 +325,7 @@ class _HorizontalCardListsState extends State<HorizontalCardLists> {
 //     tapNum = List.generate(widget.titles.length, (index) => 0);
 //     bookmarks = List.from(widget.isBookmarked);
 //     imgPaths = List.generate(widget.titles.length, (index) => 
-//       widget.isBookmarked[index] ? 'assets/images/notmynuka.png' : 'assets/images/mynukaadd.png'
+//       bookmarks[index] ? 'assets/images/mynukaadd.png' : 'assets/images/notmynuka.png'
 //     );
 //     _setCurrentUserUid(); // 追加：初期化時にUIDを設定
 //   }
@@ -431,7 +432,7 @@ class _HorizontalCardListsState extends State<HorizontalCardLists> {
 //                     setState(() {
 //                       bookmarks[index] = !bookmarks[index];
 //                       imgPaths[index] = bookmarks[index] 
-//                          ? 'assets/images/mynukaadd.png' 
+//                         ? 'assets/images/mynukaadd.png' 
 //                         : 'assets/images/notmynuka.png';
 //                     });
 //                     if (bookmarks[index]) {
@@ -545,7 +546,7 @@ class _HorizontalCardListsState extends State<HorizontalCardLists> {
 //         print('Failed to delete bookmark for userId: $userId, ideaId: $ideaId');
 //       }
 //     } catch (e) {
-//       print('Error deleting bookmark for userId: $userId, ideaId: $ideaId: $e');
+//       print('Error deleting bookmark for userId: $userId, ideaId: $e');
 //     }
 //   }
 
@@ -561,5 +562,4 @@ class _HorizontalCardListsState extends State<HorizontalCardLists> {
 //   }
 
 // }
-
 
