@@ -91558,7 +91558,7 @@ for(o=0;o<r;++o)q[o]=0
 n.x=A.lg(n.a.r,!0,t.y)
 r=n.a.c.length
 q=J.fc(r,t.N)
-for(s=n.x,o=0;o<r;++o)q[o]=s[o]?"/images/mynukaadd.png":"/images/notmynuka.png"
+for(s=n.x,o=0;o<r;++o)q[o]=s[o]?"images/mynukaadd.png":"images/notmynuka.png"
 n.w=q
 n.G9()},
 m(){var s=this.d
@@ -91782,7 +91782,7 @@ r=!p[s]
 p[s]=r
 q=q.w
 q===$&&A.b()
-q[s]=r?"/images/mynukaadd.png":"/images/notmynuka.png"},
+q[s]=r?"images/mynukaadd.png":"images/notmynuka.png"},
 $S:0}
 A.yp.prototype={
 ab(){return new A.SI(B.j)}}
