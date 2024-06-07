@@ -43,7 +43,7 @@ class _HorizontalCardListsState extends State<HorizontalCardLists> {
     tapNum = List.generate(widget.titles.length, (index) => 0);
     bookmarks = List.from(widget.isBookmarked);
     imgPaths = List.generate(widget.titles.length, (index) => 
-      bookmarks[index] ? 'assets/images/mynukaadd.png' : 'assets/images/notmynuka.png'
+      bookmarks[index] ? '/images/mynukaadd.png' : '/images/notmynuka.png'
     );
     _setCurrentUserUid(); // 追加：初期化時にUIDを設定
   }
@@ -150,8 +150,8 @@ class _HorizontalCardListsState extends State<HorizontalCardLists> {
                     setState(() {
                       bookmarks[index] = !bookmarks[index];
                       imgPaths[index] = bookmarks[index] 
-                        ? 'assets/images/mynukaadd.png' 
-                        : 'assets/images/notmynuka.png';
+                        ? '/images/mynukaadd.png' 
+                        : '/images/notmynuka.png';
                     });
                     if (bookmarks[index]) {
                       print('ブックマーク追加');
