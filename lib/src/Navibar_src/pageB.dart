@@ -23,6 +23,12 @@ class _PageBState extends State<PageB> {
   List<int> numberoflikes = [];
   String userIds = '';
   List<bool> isBookmarked = [];  // ブックマークの状態取得
+  List<String> concept = [];
+  // テクノロジーと日時の取得用
+  List<String> Tec1 = [];
+  List<String> Tec2 = [];
+  List<String> Tec3 = [];
+  List<String> ideadate = [];
 
   @override
   void initState() {
@@ -70,6 +76,12 @@ class _PageBState extends State<PageB> {
           numberoflikes = data.map((item) => item['numberoflikes'] as int).toList();
           isBookmarked = data.map((item) => item['IsBookmarked'] as bool? ?? false).toList(); // null の場合 false に設定
           isLoading = false;
+          concept = data.map((item) => item['ideaconcept'].toString()).toList();
+          Tec1 = data.map((item) => item['ideatechnology1'].toString()).toList();
+          Tec2 = data.map((item) => item['ideatechnology2'].toString()).toList();
+          Tec3 = data.map((item) => item['ideatechnology3'].toString()).toList();
+          ideadate = data.map((item) => item['ideadate'].toString()).toList();
+
         });
       } else {
         throw Exception('Failed to load data');
@@ -107,7 +119,7 @@ class _PageBState extends State<PageB> {
                             padding: EdgeInsets.symmetric(horizontal: 8),
                             color: Colors.grey.shade700,
                             child: Text(
-                              '300',
+                              '20',
                               style: TextStyle(
                                 color: Colors.grey.shade100,
                               ),
@@ -121,7 +133,7 @@ class _PageBState extends State<PageB> {
                             padding: EdgeInsets.symmetric(horizontal: 8),
                             color: Colors.lightBlue.shade800,
                             child: Text(
-                              '200',
+                              '17',
                               style: TextStyle(
                                 color: Colors.grey.shade100,
                               ),
@@ -135,7 +147,7 @@ class _PageBState extends State<PageB> {
                             padding: EdgeInsets.symmetric(horizontal: 8),
                             color: Colors.red.shade800,
                             child: Text(
-                              '200',
+                              '3',
                               style: TextStyle(
                                 color: Colors.grey.shade100,
                               ),
@@ -154,6 +166,11 @@ class _PageBState extends State<PageB> {
                       ideaId: ideaId,
                       likeNum: numberoflikes,
                       isBookmarked: isBookmarked,
+                      Concepts: concept,
+                      tec1: Tec1,
+                      tec2: Tec2,
+                      tec3: Tec3,
+                      ideaDate: ideadate,
                     ),
                   ],
                 ),

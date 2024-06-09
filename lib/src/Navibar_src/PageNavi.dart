@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:yaonukabase004/src/Navibar_src/pageA.dart';
 import 'package:yaonukabase004/src/Navibar_src/pageB.dart';
 import 'package:yaonukabase004/src/Navibar_src/pageC.dart';
@@ -39,7 +40,7 @@ class NaviApp extends StatelessWidget {
             // HorizontalCardListWithButton(),
             PageB(),
             page_c(),
-            page_d(),
+            PageD(),
             User_Info(),
           ],
         ),
