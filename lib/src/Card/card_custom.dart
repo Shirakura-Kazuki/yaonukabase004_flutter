@@ -118,7 +118,8 @@ class _CustomCardListState extends State<CustomCardList> {
                                   ),
                                   child: Image.asset(
                                     // 'assets/images/img${index % 10 + 1}.png', // 画像
-                                    'assets/images/img_loga.png',
+                                    // 'assets/images/img_loga.png',
+                                    'assets/images/bottomimage.png',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
