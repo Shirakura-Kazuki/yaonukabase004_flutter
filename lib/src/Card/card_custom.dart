@@ -202,19 +202,20 @@ Widget buildScore(IconData icon, int count) {
 
 
 // import 'package:flutter/material.dart';
-// // タッチ操作用パッケージ ：Webアプリ用にタッチ操作をするためにインポート
 // import 'package:flutter/gestures.dart';
 // import 'package:intl/intl.dart';
-// import 'package:yaonukabase004/sns_channel_test.dart';
+// import 'package:auto_size_text/auto_size_text.dart';
 
 // // 横にスクロールできるカードリストを作るクラス
 // class CustomCardList extends StatefulWidget {
 //   final List<String> titles;  // カードのタイトルを入れるためのリスト
+//   final List<String> cindex;  // 会社名のリスト
 
 //   // コンストラクタ（クラスを作るときに使う関数）
 //   const CustomCardList({
 //     Key? key,
 //     required this.titles,  // 必要な引数 titles
+//     required this.cindex,  // 必要な引数 cindex
 //   }) : super(key: key);
 
 //   // 状態を管理するクラスの作成
@@ -250,21 +251,21 @@ Widget buildScore(IconData icon, int count) {
 
 //     // 縦に並ぶ要素をまとめたコンテナ
 //     return Container(
-//       height: MediaQuery.of(context).size.height * 0.4,  // 高さは画面の40%に設定
+//       height: MediaQuery.of(context).size.height * 0.45,  // 高さは画面の45%に設定
 //       constraints: BoxConstraints(
 //         minHeight: minHeight,  // 最小の高さを設定
 //       ),
 //       child: Column(
 //         children: [
 //           // 横にスクロールできるリストを作る
-//           buildList(screenWidth, widget.titles, titleController, minHeight, minWidth),
+//           buildList(screenWidth, widget.titles, widget.cindex, titleController, minHeight, minWidth),
 //         ],
 //       ),
 //     );
 //   }
 
 //   // 横にスクロールできるリストを作る関数
-//   Widget buildList(double screenWidth, List<String> items, ScrollController controller, double minHeight, double minWidth) {
+//   Widget buildList(double screenWidth, List<String> items, List<String> companies, ScrollController controller, double minHeight, double minWidth) {
 //     return Expanded(
 //       child: Scrollbar(
 //         controller: controller,  // コントローラーを設定
@@ -287,6 +288,11 @@ Widget buildScore(IconData icon, int count) {
 //               scrollDirection: Axis.horizontal,  // 横にスクロールする
 //               itemCount: items.length,  // リストの要素の数
 //               itemBuilder: (context, index) {
+//                 final parts = items[index].split('×');
+//                 final part1 = parts.length > 0 ? parts[0] : '';
+//                 final part2 = parts.length > 1 ? '×' : '';
+//                 final part3 = parts.length > 1 ? parts[1] : '';
+
 //                 return InkWell(
 //                   // カードがタップされたときの処理
 //                   onTap: () => print('${items[index]} タップされました'),
@@ -300,7 +306,7 @@ Widget buildScore(IconData icon, int count) {
 //                       ),
 //                       child: Column(
 //                         children: [
-//                            Row(
+//                           Row(
 //                             mainAxisAlignment: MainAxisAlignment.center,
 //                             children: [
 //                               Padding(
@@ -314,7 +320,7 @@ Widget buildScore(IconData icon, int count) {
 //                                     )
 //                                   ),
 //                                   child: Image.asset(
-//                                     'assets/images/bottomimage.png', //画像
+//                                     'assets/images/img${index % 10 + 1}.png', // 画像
 //                                     fit: BoxFit.cover,
 //                                   ),
 //                                 ),
@@ -322,7 +328,7 @@ Widget buildScore(IconData icon, int count) {
 //                             ],
 //                           ),
 //                           Row(
-//                             mainAxisAlignment: MainAxisAlignment.center,
+//                             mainAxisAlignment: MainAxisAlignment.start,
 //                             children: [
 //                               Padding(
 //                                 padding: const EdgeInsets.only(left: 10), // アイコンの左にパディングを追加
@@ -332,8 +338,38 @@ Widget buildScore(IconData icon, int count) {
 //                               Column(
 //                                 crossAxisAlignment: CrossAxisAlignment.start,
 //                                 children: [
-//                                   Text(items[index], style: TextStyle(fontSize: 20)),
-//                                   Text('株式会社ABC', style: TextStyle(fontSize: 16, color: Colors.grey)),
+//                                   Container(
+//                                     width: screenWidth * 0.15,
+//                                     child: AutoSizeText(
+//                                       part1,
+//                                       style: TextStyle(fontSize: 16),
+//                                       maxLines: 1,
+//                                       minFontSize: 8,
+//                                       overflow: TextOverflow.ellipsis,
+//                                     ),
+//                                   ),
+//                                   Container(
+//                                     width: screenWidth * 0.15,
+//                                     alignment: Alignment.center,
+//                                     child: AutoSizeText(
+//                                       part2,
+//                                       style: TextStyle(fontSize: 16),
+//                                       maxLines: 1,
+//                                       minFontSize: 8,
+//                                       overflow: TextOverflow.ellipsis,
+//                                     ),
+//                                   ),
+//                                   Container(
+//                                     width: screenWidth * 0.15,
+//                                     child: AutoSizeText(
+//                                       part3,
+//                                       style: TextStyle(fontSize: 16),
+//                                       maxLines: 1,
+//                                       minFontSize: 8,
+//                                       overflow: TextOverflow.ellipsis,
+//                                     ),
+//                                   ),
+//                                   Text(companies[index], style: TextStyle(fontSize: 12, color: Colors.grey)),
 //                                 ],
 //                               ),
 //                             ],
@@ -366,4 +402,5 @@ Widget buildScore(IconData icon, int count) {
 //     ],
 //   );
 // }
+
 
