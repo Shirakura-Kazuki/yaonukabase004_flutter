@@ -92980,7 +92980,7 @@ A.aoG.prototype={
 $0(){A.rI(new A.aoF(),this.a,t.z)},
 $S:0}
 A.aoF.prototype={
-$1(a){var s=null,r=A.M("\u30d0\u30fc\u30b8\u30e7\u30f3\u60c5\u5831",s,s,s,s,s,s,s,s,s,s,s),q=A.M("\u73fe\u5728\u306e\u30d0\u30fc\u30b8\u30e7\u30f3\u306f\nver.1.2.2\u3067\u3059\u3002\n\u4fdd\u79d1\u30d1\u30a4\u30bb\u30f3\u30d6\u30c1\u30ae\u30ec\u7248",s,s,s,s,s,s,s,s,s,s,s)
+$1(a){var s=null,r=A.M("\u30d0\u30fc\u30b8\u30e7\u30f3\u60c5\u5831",s,s,s,s,s,s,s,s,s,s,s),q=A.M("\u73fe\u5728\u306e\u30d0\u30fc\u30b8\u30e7\u30f3\u306f\nver.2.2.2\u3067\u3059\u3002\n\u4fdd\u79d1\u30d1\u30a4\u30bb\u30f3\u30d6\u30c1\u30ae\u30ec\u7248",s,s,s,s,s,s,s,s,s,s,s)
 return A.oL(A.a([A.ib(A.M("OK",s,s,s,s,s,s,s,s,s,s,s),new A.aoy(a),s)],t.p),q,r)},
 $S:33}
 A.aoy.prototype={
