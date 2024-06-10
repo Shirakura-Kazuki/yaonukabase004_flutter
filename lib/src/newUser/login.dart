@@ -256,8 +256,7 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: 20), // スペースを追加
                     Image.asset(
                       // 'assets/images/bottomimage.png',
-                      'assets/images/img1.png',
-
+                      'assets/images/bottomimag1.png',
                       width: 150, // 適切な幅を設定
                       height: 150, // 適切な高さを設定
                       fit: BoxFit.contain,
