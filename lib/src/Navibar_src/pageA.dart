@@ -56,7 +56,7 @@ class _PageAState extends State<PageA> {
   ];
 
   final List<String> photoUrls = [
-    'assets/images/bottomimage.png',
+    'assets/images/veg1.png',
     'assets/images/veg2.png',
     'assets/images/veg3.png',
     'assets/images/veg4.png',
