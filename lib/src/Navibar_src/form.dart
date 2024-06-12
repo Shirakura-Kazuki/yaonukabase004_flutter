@@ -405,7 +405,8 @@ Future<void> _fetchUserData() async {
           });
         }
       },
-      items: <String>['未選択', '機械加工', '金属加工', '電子機器製造', '航空宇宙製造', 'プラスチック加工', '繊維製造']
+      items: <String>['未選択','機械加工','金属加工','電子機器製造','自動車製造','航空宇宙製造','プラスチック加工','繊維製造','食品加工','化学製品製造','製薬産業','建設業','エネルギー産業','家具製造']
+
           .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
