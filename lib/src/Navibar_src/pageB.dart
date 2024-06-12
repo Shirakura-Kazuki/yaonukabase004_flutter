@@ -35,6 +35,8 @@ class _PageBState extends State<PageB> {
 
   String? roll ; // アクションボタンroll管理
 
+  int ideaCount = 0;
+  int techCount = 0;
 
   @override
   void initState() {
@@ -98,6 +100,10 @@ class _PageBState extends State<PageB> {
           Tec2 = data.map((item) => item['ideatechnology2'].toString()).toList();
           Tec3 = data.map((item) => item['ideatechnology3'].toString()).toList();
           ideadate = data.map((item) => item['ideadate'].toString()).toList();
+
+          // ideacolornumberのカウント
+          ideaCount = colorNumbers.where((number) => number == 0).length;
+          techCount = colorNumbers.where((number) => number == 1).length;
         });
       } else {
         throw Exception('Failed to load data');
@@ -149,7 +155,7 @@ class _PageBState extends State<PageB> {
                             padding: EdgeInsets.symmetric(horizontal: 8),
                             color: Colors.lightBlue.shade800,
                             child: Text(
-                              '17',
+                              '$ideaCount',
                               style: TextStyle(
                                 color: Colors.grey.shade100,
                               ),
@@ -163,7 +169,7 @@ class _PageBState extends State<PageB> {
                             padding: EdgeInsets.symmetric(horizontal: 8),
                             color: Colors.red.shade800,
                             child: Text(
-                              '3',
+                              '$techCount',
                               style: TextStyle(
                                 color: Colors.grey.shade100,
                               ),
@@ -250,6 +256,9 @@ class _PageBState extends State<PageB> {
 // import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
 // import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:provider/provider.dart';
+// import 'package:yaonukabase004/cordinetar1.dart';
+// import 'package:yaonukabase004/providers/user_provider.dart';
 // import 'package:yaonukabase004/src/Card/card2.dart';
 // import 'package:yaonukabase004/src/Navibar_src/form.dart';
 // import 'dart:convert';
@@ -279,10 +288,24 @@ class _PageBState extends State<PageB> {
 //   List<String> Tec3 = [];
 //   List<String> ideadate = [];
 
+//   String? roll ; // アクションボタンroll管理
+
+
 //   @override
 //   void initState() {
 //     super.initState();
 //     _fetchUserId();
+//     _fetchUserType();
+//   }
+
+//   Future<void> _fetchUserType()async{
+//     await Provider.of<UserProvider>(context, listen: false).fetchUserData();
+//     if (mounted) { // ここでmountedをチェックする
+//       setState(() {
+//         roll = Provider.of<UserProvider>(context, listen: false).user?.usertype;
+//         print('新たに取得した値は：$rollです');
+//       });
+//     }
 //   }
 
 //   Future<void> _fetchUserId() async {
@@ -330,7 +353,6 @@ class _PageBState extends State<PageB> {
 //           Tec2 = data.map((item) => item['ideatechnology2'].toString()).toList();
 //           Tec3 = data.map((item) => item['ideatechnology3'].toString()).toList();
 //           ideadate = data.map((item) => item['ideadate'].toString()).toList();
-
 //         });
 //       } else {
 //         throw Exception('Failed to load data');
@@ -404,7 +426,7 @@ class _PageBState extends State<PageB> {
 //                           ),
 //                           Padding(
 //                             padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-//                             child: Text('コンペ'),
+//                             child: Text('企業技術'),
 //                           ),
 //                         ],
 //                       ),
@@ -425,26 +447,58 @@ class _PageBState extends State<PageB> {
 //                 ),
 //               ),
 //             ),
-//       floatingActionButton: SizedBox(
-//         width: 155,
-//         height: 105,
-//         child: FloatingActionButton.extended(
-//           tooltip: 'Action!',
-//           icon: Icon(Icons.add),
-//           label: Text(
-//             'アイデア投稿',
-//             style: TextStyle(fontWeight: FontWeight.bold),
+//       floatingActionButton: Stack(
+//         children: [
+//           Positioned(
+//             bottom: 16,
+//             right: 16,
+//             child: FloatingActionButton.extended(
+//               tooltip: 'Action!',
+//               icon: Icon(Icons.add),
+//               label: Text(
+//                 'アイデア投稿',
+//                 style: TextStyle(fontWeight: FontWeight.bold),
+//               ),
+//               onPressed: () {
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(builder: (context) => form_page()),
+//                 );
+//               },
+//               backgroundColor: Colors.red.shade400, // 背景色を紫に変更
+//               foregroundColor: Colors.white, // 前景色を白に変更
+//               elevation: 10, // 影の強さを増加
+//               heroTag: null, // Heroアニメーションを無効化（必要に応じて）
+//             ),
 //           ),
-//           onPressed: () {
-//             Navigator.push(
-//               context,
-//               MaterialPageRoute(builder: (context) => form_page()),
-//             );
-//           },
-//         ),
+//           if (roll == 'Coordinator')
+//             Positioned(
+//             bottom: 86,  
+//             right: 16,
+//             child: FloatingActionButton.extended(
+//               tooltip: 'Second Action!',
+//               icon: Icon(Icons.lightbulb), // AIのようなマークに変更
+//               label: Text(
+//                 'AIコーディネータページへ',
+//                 style: TextStyle(fontWeight: FontWeight.bold),
+//               ),
+//               onPressed: () {
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(builder: (context) => CordinatorScreen()),
+//                 );
+//               },
+//               backgroundColor: Colors.purple, // 背景色を紫に変更
+//               foregroundColor: Colors.white, // 前景色を白に変更
+//               elevation: 10, // 影の強さを増加
+//               heroTag: null, // Heroアニメーションを無効化（必要に応じて）
+//             ),
+//           ),
+//         ],
 //       ),
 //       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
 //     );
 //   }
 // }
+
 

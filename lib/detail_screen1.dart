@@ -286,7 +286,7 @@ class _DetailPageState extends State<DetailPage> {
         Text('2024/5/17', style: TextStyle(color: Colors.grey, fontSize: 14)),
         SizedBox(height: 10),
         Text(
-          '「モノづくりを単純に考える」',
+          '「マッチアイデア」',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
         SizedBox(height: 10),
@@ -357,9 +357,9 @@ class _DetailPageState extends State<DetailPage> {
         children: [
           Text('注目のコメント', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           SizedBox(height: 10),
-          _buildComment('小澤涼太', '株式会社有線ケーブル窃盗会社 専務執行役員', '複雑なことをそのまま複雑に考える人もいれば、複雑なことをもっと複雑にして考える人もいますね。'),
+          _buildComment('小澤涼太', '株式会社OZAWAX 執行役員', '実際のニーズを反映している点が評価できます。しかし、技術的な実現可能性やコスト面での詳細な検討が必要です。'),
           SizedBox(height: 20),
-          _buildComment('白倉一樹', '株式会社利きTENGA 取締役CFO', '物事を分かりやすく考えるために、どのような順番で何をどう考えればいいのか、そんなヒントを与えてくれます。'),
+          _buildComment('白倉一樹', ' 村長 ', 'ユーザーからのフィードバックを収集することで、改善点を明確にしていくことが重要です。これにより、より実用的で効果的なソリューションに進化させることができるでしょう。'),
         ],
       ),
     );
