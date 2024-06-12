@@ -184,7 +184,7 @@ class _HorizontalCardListsState extends State<HorizontalCardLists> {
                     border: Border.all(color: borderColor, width: 2),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Center(child: Text('写真')),
+                  child: Image.asset('assets/images/noimg.png'),
                 ),
               ),
               Row(

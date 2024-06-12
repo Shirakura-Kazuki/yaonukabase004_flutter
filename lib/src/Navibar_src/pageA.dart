@@ -125,8 +125,20 @@ class _PageAState extends State<PageA> {
               const Divider(
                 height: 40,
               ),
+
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 0, 0, 5),
+                child: Text('CRAFTCONNECTS成功事例',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              CustomCardList(
+                titles: caseTitles, 
+                cindex: CompanyIndex,
+              ),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 3, 0, 5),
                 child: Text('ピックアップアイデア',
                   style: TextStyle(fontSize: 20),
                 ),
@@ -137,16 +149,7 @@ class _PageAState extends State<PageA> {
                 ideaContents: ideaContents, 
                 photoUrls: photoUrls
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 5, 0, 5),
-                child: Text('CRAFTCONNECTS成功事例',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              CustomCardList(
-                titles: caseTitles, 
-                cindex: CompanyIndex,
-              ),
+              
             ],
           ),
         ),

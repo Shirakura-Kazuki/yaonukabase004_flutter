@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:yaonukabase004/cordinetar1.dart';
 import 'package:yaonukabase004/firebase_options.dart';
 import 'package:yaonukabase004/providers/user_provider.dart';
 import 'package:yaonukabase004/src/Navibar_src/form.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
       home: LoginPage(), // ログインページに変更
       // home: PageB(),
       // home: PageA(),
-      // home: UserAddPage(),
+      // home:CordinatorScreen(),
 
     );
   }
