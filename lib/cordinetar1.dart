@@ -11,13 +11,16 @@ class CordinatorScreen extends StatefulWidget {
   _CordinatorScreenState createState() => _CordinatorScreenState();
 }
 
-class _CordinatorScreenState extends State<CordinatorScreen> with SingleTickerProviderStateMixin {
+class _CordinatorScreenState extends State<CordinatorScreen> with TickerProviderStateMixin {
   late AnimationController _controller;
+  late AnimationController _floatController;
   late Animation<double> _shakeAnimation;
   late Animation<double> _moveLeftAnimation;
   late Animation<double> _rotateAnimation;
+  late Animation<double> _floatAnimation;
   bool _showList = false;
   bool _isFirstTap = true;
+  bool _showText = true; // テキスト表示制御用のフラグ
 
   List<dynamic> _matchedIdeas = []; // アイデアの詳細データを格納するリスト
   List<dynamic> _rankingItems = []; // 新しいリスト
@@ -32,6 +35,11 @@ class _CordinatorScreenState extends State<CordinatorScreen> with SingleTickerPr
       vsync: this,
     );
 
+    _floatController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..repeat(reverse: true);
+
     _shakeAnimation = TweenSequence([
       TweenSequenceItem(tween: Tween(begin: 0.0, end: 15.0).chain(CurveTween(curve: Curves.easeInOut)), weight: 1),
       TweenSequenceItem(tween: Tween(begin: 15.0, end: -15.0).chain(CurveTween(curve: Curves.easeInOut)), weight: 1),
@@ -41,6 +49,8 @@ class _CordinatorScreenState extends State<CordinatorScreen> with SingleTickerPr
     _rotateAnimation = Tween(begin: 0.0, end: 0.5).chain(CurveTween(curve: Curves.easeInOut)).animate(
       CurvedAnimation(parent: _controller, curve: const Interval(0.3, 0.5)),
     );
+
+    _floatAnimation = Tween(begin: 0.0, end: -20.0).chain(CurveTween(curve: Curves.easeInOut)).animate(_floatController);
 
     _fetchUserId(); // initStateでFirebaseユーザーIDを取得
   }
@@ -77,11 +87,15 @@ class _CordinatorScreenState extends State<CordinatorScreen> with SingleTickerPr
   @override
   void dispose() {
     _controller.dispose();
+    _floatController.dispose();
     super.dispose();
   }
 
   void _startAnimation() {
     _controller.forward(from: 0.0);
+    setState(() {
+      _showText = false; // テキストを非表示にする
+    });
   }
 
   void _updateRanking() async {
@@ -153,28 +167,63 @@ class _CordinatorScreenState extends State<CordinatorScreen> with SingleTickerPr
                   _updateRanking();
                 } else {
                   _controller.reset();
+                  setState(() {
+                    _showText = true; // アニメーションがリセットされたらテキストを再表示
+                  });
                 }
               },
-              child: AnimatedBuilder(
-                animation: _controller,
-                builder: (context, child) {
-                  final offset = _isFirstTap
-                      ? Offset(_shakeAnimation.value + _moveLeftAnimation.value,0)
-                      : Offset(_moveLeftAnimation.value, 0) + Offset(_shakeAnimation.value, 0);
-                  return Transform.translate(
-                    offset: offset,
-                    child: Transform.rotate(
-                      angle: _rotateAnimation.value,
-                      child: child,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (_showText)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '▼クリックしてAIからの提案を確認してください！！',
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                          ),
+                          SizedBox(width: 10),
+                          AnimatedBuilder(
+                            animation: _floatController,
+                            builder: (context, child) {
+                              return Transform.translate(
+                                offset: Offset(0, _floatAnimation.value),
+                                child: Image.asset(
+                                  'assets/images/damen.png',
+                                  width: 100,
+                                  height: 100,
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  );
-                },
-                child: Image.asset(
-                  'assets/images/2tubo.png',
-                  fit: BoxFit.cover,
-                  width: 300,
-                  height: 300,
-                ),
+                  AnimatedBuilder(
+                    animation: _controller,
+                    builder: (context, child) {
+                      final offset = _isFirstTap
+                          ? Offset(_shakeAnimation.value + _moveLeftAnimation.value, 0)
+                          : Offset(_moveLeftAnimation.value, 0) + Offset(_shakeAnimation.value, 0);
+                      return Transform.translate(
+                        offset: offset,
+                        child: Transform.rotate(
+                          angle: _rotateAnimation.value,
+                          child: child,
+                        ),
+                      );
+                    },
+                    child: Image.asset(
+                      'assets/images/2tubo.png',
+                      fit: BoxFit.cover,
+                      width: 300,
+                      height: 300,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -287,6 +336,7 @@ class MyApp extends StatelessWidget {
 // import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
 // import 'dart:convert';
+// import 'package:firebase_auth/firebase_auth.dart'; // FirebaseAuthをインポート
 // import 'detail_screen1.dart';
 
 // class CordinatorScreen extends StatefulWidget {
@@ -307,7 +357,7 @@ class MyApp extends StatelessWidget {
 //   List<dynamic> _matchedIdeas = []; // アイデアの詳細データを格納するリスト
 //   List<dynamic> _rankingItems = []; // 新しいリスト
 
-//   final String userId = '1';
+//   String userId = ''; // userIdを初期化
 
 //   @override
 //   void initState() {
@@ -326,6 +376,8 @@ class MyApp extends StatelessWidget {
 //     _rotateAnimation = Tween(begin: 0.0, end: 0.5).chain(CurveTween(curve: Curves.easeInOut)).animate(
 //       CurvedAnimation(parent: _controller, curve: const Interval(0.3, 0.5)),
 //     );
+
+//     _fetchUserId(); // initStateでFirebaseユーザーIDを取得
 //   }
 
 //   @override
@@ -343,6 +395,18 @@ class MyApp extends StatelessWidget {
 //         });
 //       }
 //     });
+//   }
+
+//   Future<void> _fetchUserId() async {
+//     final user = FirebaseAuth.instance.currentUser;
+//     if (user != null) {
+//       setState(() {
+//         userId = user.uid;
+//       });
+//       _updateRanking(); // ユーザーIDを取得した後にランキングを更新
+//     } else {
+//       print('User is not logged in.');
+//     }
 //   }
 
 //   @override
@@ -553,3 +617,5 @@ class MyApp extends StatelessWidget {
 //     );
 //   }
 // }
+
+
