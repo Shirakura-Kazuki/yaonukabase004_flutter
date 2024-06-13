@@ -29,7 +29,9 @@ class _HorizontalCardListState extends State<HorizontalCardList> {
 
   final List<String> callImages = [
     'assets/images/veg1.png',
-    'assets/images/veg2.png',
+    'assets/images/veg2.png','assets/images/veg5.png','assets/images/veg7.png','assets/images/veg8.png','assets/images/veg9.png','assets/images/veg10.png','assets/images/veg3.png',
+    'assets/images/veg4.png','assets/images/veg6.png',
+    
   ];
 
   @override
