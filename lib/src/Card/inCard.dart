@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -44,6 +46,8 @@ class _HorizonCustomCardListState extends State<HorizonCustomCardList> {
   late List<int> tapNum;
   late List<bool> bookmarks;
   String userId = '';
+  late List<int> randomNumbers;
+
 
   @override
   void initState() {
@@ -54,6 +58,8 @@ class _HorizonCustomCardListState extends State<HorizonCustomCardList> {
     tapNum = List.generate(widget.titles.length, (index) => 0);
     bookmarks = List.from(widget.isBookmarked);
     _setCurrentUserUid(); // 追加：初期化時にUIDを設定
+    randomNumbers = List.generate(widget.titles.length, (index) => Random().nextInt(10) + 1);
+
   }
 
   @override
@@ -134,6 +140,8 @@ class _HorizonCustomCardListState extends State<HorizonCustomCardList> {
                 widget.tec2[index],
                 widget.tec3[index],
                 widget.ideaDate[index],
+                randomNumbers[index],
+
               ),
             );
           },
@@ -154,6 +162,8 @@ class _HorizonCustomCardListState extends State<HorizonCustomCardList> {
     String tec2,
     String tec3,
     String ideaDate,
+    int randomNumber,
+
   ) {
     Color borderColor = (colorNumber == 0) ? Colors.blue : Colors.red;
 
@@ -196,7 +206,8 @@ class _HorizonCustomCardListState extends State<HorizonCustomCardList> {
                   border: Border.all(color: borderColor, width: 2),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Center(child: Text('写真')),
+                  child: Image.asset('assets/images/hpimg$randomNumber.png'),
+                
               ),
             ),
             Row(
